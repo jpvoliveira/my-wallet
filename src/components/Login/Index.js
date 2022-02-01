@@ -1,22 +1,25 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
+
   function handleLogin(e) {
     e.preventDefault();
+    navigate("/menu")
 
-    const promise = axios.post(
-      "http://localhost:5000",
-      {
-        email: email,
-        password: password,
-      }
-    );
+    // const promise = axios.post(
+    //   "http://localhost:5000",
+    //   {
+    //     email: email,
+    //     password: password,
+    //   }
+    // );
   }
 
   return (
