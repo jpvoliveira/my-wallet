@@ -108,7 +108,7 @@ const Container = styled.div`
     border: none;
     width: 326px;
     height: 46px;
-    background: #a328d6;
+    background: #A960D6;
     border-radius: 5px;
 
     font-weight: bold;

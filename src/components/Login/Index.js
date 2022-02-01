@@ -50,7 +50,7 @@ export default function Login() {
 }
 
 const Container = styled.div`
-  background-color: #9254be;
+  background-color: #9254BE;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -88,7 +88,7 @@ const Container = styled.div`
     border: none;
     width: 326px;
     height: 46px;
-    background: #a328d6;
+    background: #A960D6;
     border-radius: 5px;
 
     font-weight: bold;
