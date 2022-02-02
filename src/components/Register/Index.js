@@ -18,12 +18,12 @@ export default function Register() {
 
     if (password !== password2) {
       setPasswordValidate(false);
-      setPassword("")
-      setPassword2("")
+      setPassword("");
+      setPassword2("");
       return;
     }
     setPasswordValidate(true);
-    
+
     const promise = axios.post("http://localhost:5000/cadastro", {
       email: email,
       name: name,
@@ -34,9 +34,9 @@ export default function Register() {
       navigate("/");
     });
     promise.catch((error) => {
-      if(error.response.status === 409){
-        setEmailValidate(false)
-        return
+      if (error.response.status === 409) {
+        setEmailValidate(false);
+        return;
       }
       alert(error.response.status);
     });
@@ -74,7 +74,15 @@ export default function Register() {
           onChange={(e) => setPassword2(e.target.value)}
           required
         />
-        {emailValidate ? passwordValidate ? "" : <span>Senhas não conferem!</span> :<span>E-mail já cadastrado!</span>}
+        {emailValidate ? (
+          passwordValidate ? (
+            ""
+          ) : (
+            <span>Senhas não conferem!</span>
+          )
+        ) : (
+          <span>E-mail já cadastrado!</span>
+        )}
         <button type="submit"> Cadastrar </button>
       </form>
       <Link to="/">

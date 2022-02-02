@@ -8,9 +8,9 @@ import UserContext from "../../contexts/UserContext";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [invalidData, setInvalidData] = useState(true)
-  const {setToken} = useContext(TokenContext)
-  const {setUser} = useContext(UserContext)
+  const [invalidData, setInvalidData] = useState(true);
+  const { setToken } = useContext(TokenContext);
+  const { setUser } = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -22,13 +22,13 @@ export default function Login() {
       password: password,
     });
     promise.then((response) => {
-      setUser(response.data.name)
+      setUser({ name: response.data.name, email: response.data.email });
       navigate("/menu");
     });
-    promise.catch(()=>{
-      setInvalidData(false)
-      setPassword("")
-    })
+    promise.catch(() => {
+      setInvalidData(false);
+      setPassword("");
+    });
   }
 
   return (
@@ -95,8 +95,8 @@ const Container = styled.div`
     }
   }
   span {
-  color: black;
-  font-size: 15px;
+    color: black;
+    font-size: 15px;
   }
   button {
     border: none;

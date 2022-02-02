@@ -1,11 +1,32 @@
-import { useState } from "react";
+import axios from "axios";
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import UserContext from "../../contexts/UserContext";
+import dayjs from "dayjs";
 
 export default function Input() {
   const [value, setValue] = useState("");
   const [description, setDescription] = useState("");
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
 
-  function handleInput() {}
+  function handleInput(e) {
+    e.preventDefault();
+    const promise = axios.post("http://localhost:5000/entrada", {
+      email: user.email,
+      value: value,
+      description: description,
+      type: "input",
+      date: dayjs().format("DD/MM"),
+    });
+    promise.then(() => {
+      navigate("/menu");
+    });
+    promise.catch((err) => {
+      console.log(err.data);
+    });
+  }
 
   return (
     <Container>
