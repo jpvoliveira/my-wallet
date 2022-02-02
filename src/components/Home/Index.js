@@ -18,9 +18,13 @@ export default function Home() {
       },
     });
     promise.then((response) => {
-      let cont = 0
-      response.data.forEach((item)=>{item.type === "input" ? cont = cont + parseFloat(item.value) : cont = cont - parseFloat(item.value)})
-      setSaldo(cont.toFixed(2))
+      let cont = 0;
+      response.data.forEach((item) => {
+        item.type === "input"
+          ? (cont = cont + parseFloat(item.value))
+          : (cont = cont - parseFloat(item.value));
+      });
+      setSaldo(cont.toFixed(2));
       setExtrato(response.data);
     });
     promise.catch((error) => console.log(error.response));
@@ -36,16 +40,16 @@ export default function Home() {
           onClick={() => navigate("/")}
         />
       </Header>
-      <Extrato extrato={extrato}>
-        <div>
+      <Extrato>
+        <List extrato={extrato}>
           {extrato.length > 0 ? (
-            extrato.map((item) => <Item dados={item} key={item._id}/>)
+            extrato.map((item) => <Item dados={item} key={item._id} />)
           ) : (
             <p>
               Não há registros de <br /> entrada ou saída
             </p>
           )}
-        </div>
+        </List>
         {extrato.length > 0 && (
           <Saldo saldo={saldo}>
             SALDO<span>{saldo}</span>
@@ -81,7 +85,7 @@ function Item({ dados }) {
         {dados.date}
         <span>{dados.description}</span>
       </div>
-      <p>{dados.value}</p>
+      <p>{parseFloat(dados.value).toFixed(2)}</p>
     </Linha>
   );
 }
@@ -109,20 +113,29 @@ const Header = styled.div`
 const Extrato = styled.div`
   display: flex;
   flex-direction: column;
-  ${(props) =>
-    props.extrato.length < 1
-      ? "justify-content: center;"
-      : "justify-content: space-between;"}
+
   background-color: #ffffff;
   width: 90%;
   height: 72%;
   border-radius: 5px;
-  padding: 20px 10px;
+  padding: 20px 10px 10px 10px;
 
   color: #868686;
   font-size: 20px;
   line-height: 23px;
   text-align: center;
+`;
+const List = styled.div`
+  width: 100%;
+  height: 98%;
+  display: flex;
+  flex-direction: column;
+  ${(props) =>
+    props.extrato.length < 1
+      ? "justify-content: center;"
+      : "justify-content: space-between;"}
+  overflow: auto;
+  margin-bottom: 5px;
 `;
 const Linha = styled.div`
   display: flex;
@@ -151,7 +164,7 @@ const Saldo = styled.footer`
     font-size: 17px;
     line-height: 20px;
 
-    color: ${(props)=> props.saldo>0 ? "green" : "red"} 
+    color: ${(props) => (props.saldo > 0 ? "green" : "red")};
   }
 `;
 const Options = styled.div`
