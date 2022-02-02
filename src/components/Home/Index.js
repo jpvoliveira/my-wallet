@@ -18,7 +18,11 @@ export default function Home() {
       },
     });
     promise.then((response) => {
+      let cont = 0
       setExtrato(response.data);
+      response.data.map((item)=>{item.type === "input" ? cont = cont + parseFloat(item.value) : cont = cont - parseFloat(item.value)})
+      setSaldo(saldo + response.data.value)
+      setSaldo(cont.toFixed(2))
     });
     promise.catch((error) => console.log(error.response));
   }, []);
@@ -44,7 +48,7 @@ export default function Home() {
           )}
         </div>
         {extrato.length > 0 && (
-          <Saldo>
+          <Saldo saldo={saldo}>
             SALDO<span>{saldo}</span>
           </Saldo>
         )}
@@ -147,6 +151,8 @@ const Saldo = styled.footer`
     font-weight: normal;
     font-size: 17px;
     line-height: 20px;
+
+    color: ${(props)=> props.saldo>0 ? "green" : "red"} 
   }
 `;
 const Options = styled.div`
