@@ -8,24 +8,32 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
+  const [passwordValidate, setPasswordValidate] = useState(true);
 
   const navigate = useNavigate();
 
   function handleRegister(e) {
     e.preventDefault();
 
-    const promise = axios.post("http://localhost:5000/cadastro", {
-      email: email,
-      name: name,
-      password: password,
-    });
-    promise.then((response) => {
-      console.log(response);
-      navigate("/");
-    });
-    promise.catch((error) => {
-      alert(error.response.data.message);
-    });
+    if (password !== password2) {
+      setPasswordValidate(false);
+      return;
+    }
+    setPasswordValidate(true);
+    navigate("/");
+
+    // const promise = axios.post("http://localhost:5000/cadastro", {
+    //   email: email,
+    //   name: name,
+    //   password: password,
+    // });
+    // promise.then((response) => {
+    //   console.log(response);
+    //   navigate("/");
+    // });
+    // promise.catch((error) => {
+    //   alert(error.response.data.message);
+    // });
   }
 
   return (
@@ -60,6 +68,7 @@ export default function Register() {
           onChange={(e) => setPassword2(e.target.value)}
           required
         />
+        {passwordValidate ? "" : <span>Senhas não conferem!</span>}
         <button type="submit"> Cadastrar </button>
       </form>
       <Link to="/">
@@ -104,11 +113,15 @@ const Container = styled.div`
       color: #000000;
     }
   }
+  span {
+    color: black;
+    font-size: 15px;
+  }
   button {
     border: none;
     width: 326px;
     height: 46px;
-    background: #A960D6;
+    background: #a960d6;
     border-radius: 5px;
 
     font-weight: bold;
