@@ -1,14 +1,17 @@
 import styled from "styled-components";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AddCircleOutline, RemoveCircleOutline } from "react-ionicons";
+import UserContext from "../../contexts/UserContext";
 
 export default function Home() {
   const navigate = useNavigate();
+  const { user } = useContext(UserContext);
 
   return (
     <Container>
       <Header>
-        <h1>Olá, Fulano</h1>
+        <h1>Olá, {user}</h1>
         <img src="./assets/Logout.svg" alt="" />
       </Header>
       <Extrato>

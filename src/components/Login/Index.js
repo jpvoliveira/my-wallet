@@ -1,12 +1,16 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import TokenContext from "../../contexts/TokenContext";
+import UserContext from "../../contexts/UserContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [invalidData, setInvalidData] = useState(true)
+  const {setToken} = useContext(TokenContext)
+  const {setUser} = useContext(UserContext)
 
   const navigate = useNavigate();
 
@@ -17,7 +21,8 @@ export default function Login() {
       email: email,
       password: password,
     });
-    promise.then(() => {
+    promise.then((response) => {
+      setUser(response.data.name)
       navigate("/menu");
     });
     promise.catch(()=>{
