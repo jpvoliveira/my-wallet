@@ -6,20 +6,24 @@ import styled from "styled-components";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [invalidData, setInvalidData] = useState(true)
 
   const navigate = useNavigate();
 
   function handleLogin(e) {
     e.preventDefault();
-    navigate("/menu")
 
-    // const promise = axios.post(
-    //   "http://localhost:5000",
-    //   {
-    //     email: email,
-    //     password: password,
-    //   }
-    // );
+    const promise = axios.post("http://localhost:5000/login", {
+      email: email,
+      password: password,
+    });
+    promise.then(() => {
+      navigate("/menu");
+    });
+    promise.catch(()=>{
+      setInvalidData(false)
+      setPassword("")
+    })
   }
 
   return (
@@ -40,6 +44,7 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
+        {invalidData ? "" : <span>E-mail e/ou senha invalidos!</span>}
         <button type="submit"> Entrar </button>
       </form>
       <Link to="/cadastro">
@@ -50,7 +55,7 @@ export default function Login() {
 }
 
 const Container = styled.div`
-  background-color: #9254BE;
+  background-color: #9254be;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -81,14 +86,18 @@ const Container = styled.div`
     ::placeholder {
       font-size: 20px;
       line-height: 23px;
-      color: #000000;
+      color: gray;
     }
+  }
+  span {
+  color: black;
+  font-size: 15px;
   }
   button {
     border: none;
     width: 326px;
     height: 46px;
-    background: #A960D6;
+    background: #a960d6;
     border-radius: 5px;
 
     font-weight: bold;

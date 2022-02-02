@@ -9,6 +9,7 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
   const [passwordValidate, setPasswordValidate] = useState(true);
+  const [emailValidate, setEmailValidate] = useState(true);
 
   const navigate = useNavigate();
 
@@ -17,23 +18,28 @@ export default function Register() {
 
     if (password !== password2) {
       setPasswordValidate(false);
+      setPassword("")
+      setPassword2("")
       return;
     }
     setPasswordValidate(true);
-    navigate("/");
-
-    // const promise = axios.post("http://localhost:5000/cadastro", {
-    //   email: email,
-    //   name: name,
-    //   password: password,
-    // });
-    // promise.then((response) => {
-    //   console.log(response);
-    //   navigate("/");
-    // });
-    // promise.catch((error) => {
-    //   alert(error.response.data.message);
-    // });
+    
+    const promise = axios.post("http://localhost:5000/cadastro", {
+      email: email,
+      name: name,
+      password: password,
+    });
+    promise.then((response) => {
+      console.log(response);
+      navigate("/");
+    });
+    promise.catch((error) => {
+      if(error.response.status === 409){
+        setEmailValidate(false)
+        return
+      }
+      alert(error.response.status);
+    });
   }
 
   return (
@@ -68,7 +74,7 @@ export default function Register() {
           onChange={(e) => setPassword2(e.target.value)}
           required
         />
-        {passwordValidate ? "" : <span>Senhas não conferem!</span>}
+        {emailValidate ? passwordValidate ? "" : <span>Senhas não conferem!</span> :<span>E-mail já cadastrado!</span>}
         <button type="submit"> Cadastrar </button>
       </form>
       <Link to="/">
@@ -110,7 +116,7 @@ const Container = styled.div`
     ::placeholder {
       font-size: 20px;
       line-height: 23px;
-      color: #000000;
+      color: gray;
     }
   }
   span {
