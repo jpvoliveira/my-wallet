@@ -19,13 +19,12 @@ export default function Home() {
     });
     promise.then((response) => {
       let cont = 0
-      setExtrato(response.data);
-      response.data.map((item)=>{item.type === "input" ? cont = cont + parseFloat(item.value) : cont = cont - parseFloat(item.value)})
-      setSaldo(saldo + response.data.value)
+      response.data.forEach((item)=>{item.type === "input" ? cont = cont + parseFloat(item.value) : cont = cont - parseFloat(item.value)})
       setSaldo(cont.toFixed(2))
+      setExtrato(response.data);
     });
     promise.catch((error) => console.log(error.response));
-  }, []);
+  }, [saldo, user.email]);
 
   return (
     <Container>
@@ -40,7 +39,7 @@ export default function Home() {
       <Extrato extrato={extrato}>
         <div>
           {extrato.length > 0 ? (
-            extrato.map((item) => <Item dados={item} />)
+            extrato.map((item) => <Item dados={item} key={item._id}/>)
           ) : (
             <p>
               Não há registros de <br /> entrada ou saída
