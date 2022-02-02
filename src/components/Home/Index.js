@@ -12,7 +12,7 @@ export default function Home() {
     <Container>
       <Header>
         <h1>Olá, {user}</h1>
-        <img src="./assets/Logout.svg" alt="" />
+        <img src="./assets/Logout.svg" alt="sair" onClick={()=>navigate("/")} />
       </Header>
       <Extrato>
         Não há registros de <br /> entrada ou saída
