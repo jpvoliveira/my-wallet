@@ -3,24 +3,34 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import UserContext from "../../contexts/UserContext";
+import TokenContext from "../../contexts/TokenContext";
 import dayjs from "dayjs";
 
 export default function Input() {
   const [value, setValue] = useState("");
   const [description, setDescription] = useState("");
+  const { token } = useContext(TokenContext);
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
   function handleOutput(e) {
     e.preventDefault();
 
-    const promise = axios.post("http://localhost:5000/saida", {
-      email: user.email,
-      value: value,
-      description: description,
-      type: "output",
-      date: dayjs().format("DD/MM"),
-    });
+    const promise = axios.post(
+      "http://localhost:5000/saida",
+      {
+        email: user.email,
+        value: value,
+        description: description,
+        type: "output",
+        date: dayjs().format("DD/MM"),
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     promise.then(() => {
       navigate("/menu");
     });

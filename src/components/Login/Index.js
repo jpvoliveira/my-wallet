@@ -22,7 +22,8 @@ export default function Login() {
       password: password,
     });
     promise.then((response) => {
-      setUser({ name: response.data.name, email: response.data.email });
+      setUser({ name: response.data.name });
+      setToken(response.data.token);
       navigate("/menu");
     });
     promise.catch(() => {

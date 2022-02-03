@@ -4,9 +4,11 @@ import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AddCircleOutline, RemoveCircleOutline } from "react-ionicons";
 import UserContext from "../../contexts/UserContext";
+import TokenContext from "../../contexts/TokenContext";
 
 export default function Home() {
   const navigate = useNavigate();
+  const { token } = useContext(TokenContext);
   const { user } = useContext(UserContext);
   const [extrato, setExtrato] = useState([]);
   const [saldo, setSaldo] = useState(0);
@@ -14,7 +16,7 @@ export default function Home() {
   useEffect(() => {
     const promise = axios.get("http://localhost:5000/menu", {
       headers: {
-        email: user.email,
+        Authorization: `Bearer ${token}`,
       },
     });
     promise.then((response) => {
@@ -28,7 +30,7 @@ export default function Home() {
       setExtrato(response.data);
     });
     promise.catch((error) => console.log(error.response));
-  }, [saldo, user.email]);
+  }, [saldo, token]);
 
   return (
     <Container>
@@ -130,10 +132,7 @@ const List = styled.div`
   height: 98%;
   display: flex;
   flex-direction: column;
-  ${(props) =>
-    props.extrato.length < 1
-      ? "justify-content: center;"
-      : "justify-content: space-between;"}
+  ${(props) => (props.extrato.length < 1 ? "justify-content: center;" : "")}
   overflow: auto;
   margin-bottom: 5px;
 `;

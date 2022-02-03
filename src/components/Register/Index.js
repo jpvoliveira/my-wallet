@@ -36,6 +36,7 @@ export default function Register() {
     promise.catch((error) => {
       if (error.response.status === 409) {
         setEmailValidate(false);
+        setPasswordValidate(false)
         return;
       }
       alert(error.response.status);
