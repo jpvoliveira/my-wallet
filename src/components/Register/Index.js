@@ -24,7 +24,7 @@ export default function Register() {
     }
     setPasswordValidate(true);
 
-    const promise = axios.post("http://localhost:5000/cadastro", {
+    const promise = axios.post("https://api-my-wallet-v1.herokuapp.com/cadastro", {
       email: email,
       name: name,
       password: password,

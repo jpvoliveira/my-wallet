@@ -17,7 +17,7 @@ export default function Login() {
   function handleLogin(e) {
     e.preventDefault();
 
-    const promise = axios.post("http://localhost:5000/login", {
+    const promise = axios.post("https://api-my-wallet-v1.herokuapp.com/login", {
       email: email,
       password: password,
     });
