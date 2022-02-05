@@ -16,7 +16,7 @@ export default function Input() {
   function handleInput(e) {
     e.preventDefault();
     const promise = axios.post(
-      "http://localhost:5000/entrada",
+      "https://my-wallet-v1.herokuapp.com/entrada",
       {
         email: user.email,
         value: value,

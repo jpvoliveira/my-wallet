@@ -14,7 +14,7 @@ export default function Home() {
   const [saldo, setSaldo] = useState(0);
 
   useEffect(() => {
-    const promise = axios.get("http://localhost:5000/menu", {
+    const promise = axios.get("https://my-wallet-v1.herokuapp.com/menu", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
