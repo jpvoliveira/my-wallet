@@ -68,6 +68,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  vertical-align: middle;
   img {
     width: 150px;
     height: 50px;
