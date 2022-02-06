@@ -62,7 +62,7 @@ export default function Login() {
 
 const Container = styled.div`
   background-color: #9254be;
-  height: 100%;
+  height: 100vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
