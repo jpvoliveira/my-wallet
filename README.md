@@ -26,7 +26,7 @@ Até o momento foram implementadas as seguintes funcionalidades:
 
 ### Instruções de uso:
 
-> Caso queria rodar a aplicação na sua máquina, o backend esta disponivel acessando: <a href="https://github.com/jpvoliveira/APIMyWallet">aqui</a>.
+> Caso queria rodar a aplicação na sua máquina, o backend esta disponivel clicando <a href="https://github.com/jpvoliveira/APIMyWallet">aqui</a>.
 
  1. Clone esse repositório
  2. Instale as dependências com
