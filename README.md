@@ -16,7 +16,7 @@ Acesse o projeto pelo link: https://my-wallet-beta.vercel.app
 
 ## Sobre
 
-Este aplicativo foi criado para auxiliar o usario no controle do seu dinheiro.
+Este aplicativo foi criado para auxiliar o usuário no controle do seu dinheiro.
 Até o momento foram implementadas as seguintes funcionalidades:
 - Cadastro do usuario
 - Login do usuario
